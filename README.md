@@ -30,5 +30,10 @@ public function example()
     $compressedImagePath = $compressor->compressImage('path_to_original_image', Quality::MEDIUM);
 }
 ```
+Supported image formats to compress from:
+- jpeg
+- png
+- webp
+- tiff
 
 cleanup of compressed images happens automatically on destroy
