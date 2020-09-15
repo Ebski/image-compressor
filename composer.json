@@ -1,0 +1,22 @@
+{
+  "name": "ebski/image-compressor",
+  "version": "0.1.0",
+  "description": "Compresses images to webp",
+  "keywords": ["compression", "webp"],
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ebbe Vig Nielsen",
+      "email": "Ebski91@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ebski\\ImageCompressor\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.1"
+  }
+}
