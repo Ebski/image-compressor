@@ -10,14 +10,11 @@ namespace Ebski\ImageCompressor\Compressors;
 class WebpCompressor
 {
     /**
-     * @var array
+     * @param string[] $storedImages
      */
-    private $storedImages;
-
-    public function __construct()
-    {
-        $this->storedImages = [];
-    }
+    public function __construct(
+        private array $storedImages = []
+    ) {}
 
     public function __destruct()
     {
