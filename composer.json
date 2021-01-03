@@ -1,6 +1,6 @@
 {
   "name": "ebski/image-compressor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Compresses images to webp",
   "keywords": ["compression", "webp"],
   "minimum-stability": "stable",

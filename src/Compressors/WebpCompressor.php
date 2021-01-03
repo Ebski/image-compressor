@@ -14,6 +14,21 @@ class WebpCompressor
      */
     private $storedImages;
 
+    /**
+     * @var bool
+     */
+    private $resize = false;
+
+    /**
+     * @var int|null
+     */
+    private $width;
+
+    /**
+     * @var int|null
+     */
+    private $height;
+
     public function __construct()
     {
         $this->storedImages = [];
@@ -27,6 +42,19 @@ class WebpCompressor
     }
 
     /**
+     * Compressor should resize all images to the following size
+     *
+     * @param int $width
+     * @param int $height
+     */
+    public function resizeTo(int $width, int $height): void
+    {
+        $this->resize = true;
+        $this->width = $width;
+        $this->height = $height;
+    }
+
+    /**
      * @param string $imagePath
      * @param int $quality
      * @return string
@@ -35,7 +63,8 @@ class WebpCompressor
     {
         $storagePath = sprintf('%s/CompressedImages/%s.webp', __DIR__, uniqid());
         $path = $storagePath;
-        $cmd = sprintf('cwebp -q %s %s -o %s', $quality, $imagePath, $storagePath);
+        $resize = !$this->resize ? '' : sprintf(' -resize %u %u', $this->width, $this->height);
+        $cmd = sprintf('cwebp -q %s%s %s -o %s', $quality, $resize, $imagePath, $storagePath);
         exec($cmd, $storagePath, $exitCode);
         $this->storedImages[] = $path;
         return $path;
