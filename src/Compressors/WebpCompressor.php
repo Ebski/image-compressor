@@ -54,7 +54,7 @@ class WebpCompressor
         exec($resizeCommand, $storagePath, $exitCode);
         $cropCommand = $this->getCropCommand($options);
         exec($cropCommand, $storagePath, $exitCode);
-        $path = $this->compressImage($options->getPath(), $options->getQuality());
+        $path = $this->compressImage(self::TEMP_PATH_CROP, $options->getQuality());
         unlink(self::TEMP_PATH_RESIZE);
         unlink(self::TEMP_PATH_CROP);
         return $path;
@@ -83,14 +83,14 @@ class WebpCompressor
     private function getCropCommand(CompressOptions $options): string
     {
         $path = self::TEMP_PATH_CROP;
-        $imageInfo = $this->getImageInfo($options->getPath());
+        $imageInfo = $this->getImageInfo(self::TEMP_PATH_RESIZE);
         $halfWantedSize = intval($options->getSquareResizeAndCropSize() / 2);
         if ($imageInfo->getWidth() > $imageInfo->getHeight()) {
             $widthStart = intval($imageInfo->getWidth() / 2) - $halfWantedSize;
             $string = sprintf('%u 0', $widthStart);
         } else {
             $heightStart = intval($imageInfo->getHeight() / 2) - $halfWantedSize;
-            $string = sprintf('%u 0', $heightStart);
+            $string = sprintf('0 %u', $heightStart);
         }
 
         return sprintf(
